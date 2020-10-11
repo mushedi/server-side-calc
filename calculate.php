@@ -1,77 +1,71 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+</head>
+<body>
+    <?php
 /*
- * Your comment header here
+ * Name: Azul Lanas
+ * Date: October 7th 2020
+ * Purpose: To write a simple server side application for a calculator
  */
 
+ if (!empty($_POST)) {
+    if(!empty($_POST["num1"]) && !empty($_POST["num2"]) && !empty($_POST["oper"])){
+        $n1 = $_POST['num1'];
+        $n2 = $_POST['num2'];
+        $oper = $_POST['oper'];
+        
 
-/*
- * this next line is just for debugging. it takes the $_POST variable
- * "dumps" it out and sends it back to the client.
- * Try it in the client and you will see it in both the page
- * and in the console. The $_POST variable is an associative array
- * that corresponds to the line 14 from main.js--> data: {num1: n1, num2: n2, oper: op}
- * notice that $_POST is just an array with the keys "num1", "num2", and "oper"
- * so (for example) if you want to print num1 here, you would: echo $_POST["num1"]
- */
-var_dump($_POST);
+        trim($n1);
+        trim($n2);
+        trim($oper);
 
-/* Test this next part to see how $_POST works...
- * comment out the line above and then uncomment the following lines
- * test it and see what happens in browser. notice that the "return"
- * for a server side program is to just print. whatever you print here will
- * go back to the browser.
- */
-//echo $_POST["num1"] . PHP_EOL;
-//echo $_POST["num2"] . PHP_EOL;
-//echo $_POST["oper"] . PHP_EOL;
+        if(!preg_match('/^[\d\.]+$/', $n1)){
+            $n1 = 0;
+        }
 
-/*
- * Now get rid of all those debug lines and comments (save them somewhere else if
- * you want to reference them later) and follow these instructions...
- */
+        if(!preg_match('/^[\d\.]+$/', $n2)){
+            $n2 = 0;
+        }
 
-/************************************************
-**************IMPORTANT**************************
-ALL code you ever write, no matter the language, no matter the system,
-no matter what, must always follow one simple pattern...
+        $n1 = (float)$n1;
+        $n2 = (float)$n2;
 
-Input -> Validate -> Process -> Output
+        if($oper !== 'add' && $oper !== 'sub' && $oper !== 'mul' && $oper !== 'div'){
+            $oper = 'add';
+        }
+        switch($oper){
+            case "add":
+                $ans = $n1 + $n2;
+                printf("%s + %s = %s", $n1, $n2, $ans);
+                break;
+            case "sub":
+                $ans = $n1 - $n2;
+                printf("%s - %s = %s", $n1, $n2, $ans);
+                break;
+            case "mul":
+                $ans = $n1 * $n2;
+                printf("%s * %s = %s", $n1, $n2, $ans);
+                break;
+            case "div":
+                $ans = $n1 / $n2;
+                printf("%s / %s = %s", $n1, $n2, $ans);
+                break;
+            default:
+                printf("Please choose either ADD, SUBTRACT, MULTIPLY, or DIVIDE");
+                break;
+        }
+    } else {
+        printf("Please enter proper data into the Calculator.");
+    }
+} else {
+    printf("Please enter proper data into the Calculator.");
+}
 
-In this application, follow this process as described below.
-*************************************************
-************************************************/
-
-// STEP 1 INPUT: get the values of $_POST into local variables
-/* place each of the $_POST variables into a local variable. for example...
- * $n1 = $_POST["num1"]; will put the value of $_POST["num1"] in $n1
- * You always do this first to get away from $_POST as fast as possible
- *
- *  **** Keep in mind, these values will all be strings! ****
- */
-
-// STEP 2 VALIDATION <-- MOST IMPORTANT STEP!!!:
-/*
- * perform all of the following on your local variables
- *  - trim them (remove white space from beginning and end of the strings)
- *  - validate what should be numbers (num1 and num2) actually contain a string
- *    that corresponds to what will be a valid integer or float
- *    if they don't then make the values 0
- *  - Convert the strings in num1 and num2 to floats
- *  - validate the oper contains only the valid strings "add", "sub", "mul", "div"
- *    if it doesn't default to "add"
- * The reason you do all this is if someone tries
- * to hack your form, all they will get back is 0+0
- */
-
-//STEP 3 PROCESS:
-/*
- * use a switch statement based on "add", "sub", "mul", "div" to do the
- * appropriate math and get the answer
- */
-
-
-//STEP 4 OUTPUT:
-/*
- * echo the answer back to the client
- */
-
+?>
+</body>
+</html>
