@@ -10,25 +10,38 @@ function validNum(str) {
     return re.test(str);
 }
 
+function validate(){
 
-/*
- * code inside the docready lister is automatically
- * executed when the document is completely downloaded
- * and rendered in the browser. put your event handlers
- * inside a docready lister for safety.
- */
+    let errMsg = '';
+    let n1 = $('#num1').val().trim();
+    let n2 = $('#num2').val().trim();
+
+    $('#num1').val(n1);
+    $('#num2').val(n2);
+
+    if( n1 == '' || n2 == ''){
+        errMsg += "Inputs cannot be empty! Please enter a number. <br>";
+    } else if(!validNum(n1)){
+        errMsg += "Please enter a valid number. EX: 8756 <br>";
+    } else if(!validNum(n2)){
+        errMsg += "Please enter a valid number. EX: 8756 <br>";
+    }
+
+    return errMsg;
+
+}
 $(document).ready(function () {
-    // this is an even handler that says what to do when
-    // the calculate button is pressed
-    $("#calculate").click(function () {
 
-        /*
-         *  this does no error checking and simply returns true so as to
-         *  make the form submit. Complete all server side validation first
-         *  then come back here and add client-side code to do validation
-         *  prior to submission. Erase 
-         */
-        return true;
-        
+    $("#calculate").click(function() {
+        let check = validate();
+        let submit = '';
+        if(check == ''){
+            submit = true;
+        } else{
+            $("#msg").html(check + "<br>");
+            submit = false;
+        }
+        return submit;
     });
+
 });
