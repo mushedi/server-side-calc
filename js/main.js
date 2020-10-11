@@ -1,5 +1,7 @@
 /*
- * Your comment header here
+ *Name: Azul Lanas
+  Date: 10/10/2020
+  Purpose: Validate calc input for better UX
  */
 
 function validNum(str) {
