@@ -35,14 +35,7 @@
         $n1 = (float)$n1;
         $n2 = (float)$n2;
 
-        if($oper !== 'add' && $oper !== 'sub' && $oper !== 'mul' && $oper !== 'div'){
-            $oper = 'add';
-        }
         switch($oper){
-            case "add":
-                $ans = $n1 + $n2;
-                printf("%s + %s = %s", $n1, $n2, $ans);
-                break;
             case "sub":
                 $ans = $n1 - $n2;
                 printf("%s - %s = %s", $n1, $n2, $ans);
@@ -56,7 +49,8 @@
                 printf("%s / %s = %s", $n1, $n2, $ans);
                 break;
             default:
-                printf("Please choose either ADD, SUBTRACT, MULTIPLY, or DIVIDE");
+                $ans = $n1 + $n2;
+                printf("%s + %s = %s", $n1, $n2, $ans);
                 break;
         }
     } else {
